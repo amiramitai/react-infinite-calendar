@@ -119,6 +119,7 @@ export default class MonthList extends Component {
   renderMonth = ({index, style}) => {
     let {
       DayComponent,
+      MonthComponent,
       disabledDates,
       disabledDays,
       locale,
@@ -138,7 +139,7 @@ export default class MonthList extends Component {
     let {date, rows} = this.memoize(key);
 
     return (
-      <Month
+      <MonthComponent
         key={key}
         selected={selected}
         DayComponent={DayComponent}

@@ -8,9 +8,10 @@ import defaultLocale from '../utils/defaultLocale';
 import defaultTheme from '../utils/defaultTheme';
 import Today, {DIRECTION_UP, DIRECTION_DOWN} from '../Today';
 import Header from '../Header';
-import MonthList from '../MonthList';
 import Weekdays from '../Weekdays';
 import Years from '../Years';
+import Month from '../Month';
+import MonthList from '../MonthList';
 import Day from '../Day';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
@@ -33,6 +34,8 @@ export const withDefaultProps = defaultProps({
   maxDate: new Date(2050, 11, 31),
   min: new Date(1980, 0, 1),
   minDate: new Date(1980, 0, 1),
+  MonthComponent: Month,
+  MonthListComponent: MonthList,
   onHighlightedDateChange: emptyFn,
   onScroll: emptyFn,
   onScrollEnd: emptyFn,
@@ -89,6 +92,8 @@ export default class Calendar extends Component {
     maxDate: PropTypes.instanceOf(Date),
     min: PropTypes.instanceOf(Date),
     minDate: PropTypes.instanceOf(Date),
+    MonthComponent: PropTypes.func,
+    MonthListComponent: PropTypes.func,
     onScroll: PropTypes.func,
     onScrollEnd: PropTypes.func,
     onSelect: PropTypes.func,
@@ -266,20 +271,23 @@ export default class Calendar extends Component {
   }
   render() {
     let {
-			className,
+	  className,
       passThrough,
       DayComponent,
-			disabledDays,
+	  disabledDays,
       displayDate,
-			height,
+	  height,
       HeaderComponent,
+      MonthComponent,
+      MonthListComponent,
       rowHeight,
       scrollDate,
       selected,
-			tabIndex,
-			width,
+	  tabIndex,
+	  width,
       YearsComponent,
-		} = this.props;
+	} = this.props;
+
     const {
       hideYearsOnSelect,
       layout,
@@ -339,7 +347,7 @@ export default class Calendar extends Component {
                 todayLabel={locale.todayLabel.long}
               />
             }
-            <MonthList
+            <MonthListComponent
               ref={instance => {
                 this._MonthList = instance;
               }}
@@ -353,6 +361,7 @@ export default class Calendar extends Component {
               min={this._min}
               minDate={this._minDate}
               months={this.months}
+              MonthComponent={MonthComponent}
               onScroll={this.handleScroll}
               overscanMonthCount={overscanMonthCount}
               passThrough={passThrough}
