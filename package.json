@@ -20,7 +20,6 @@
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server",
     "lint": "eslint --fix src/**/*.js",
-    "install": "npm run build"
   },
   "dependencies": {
     "classnames": "^2.2.5",
