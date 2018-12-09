@@ -34,6 +34,7 @@ export const withDateSelection = compose(
     const selected = sanitizeDate(props.selected, props);
 
     return {
+      ...props,
       passThrough: {
         Day: {
           onClick: onSelect,
@@ -41,6 +42,7 @@ export const withDateSelection = compose(
         Years: {
           onSelect: (year) => handleYearSelect(year, {onSelect, selected, setScrollDate}),
         },
+        ...props.passThrough,
       },
       selected: selected && format(selected, 'YYYY-MM-DD'),
     };
